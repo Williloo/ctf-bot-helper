@@ -1,0 +1,26 @@
+services:
+  ctf-bot:
+    build: 
+      context: .
+      dockerfile: Dockerfile.simple
+    container_name: ctf-bot-helper
+    restart: unless-stopped
+    volumes:
+      - ./.secret:/app/.secret:ro
+    environment:
+      # These will be loaded from .secret/.env, but you can override here if needed
+      - DISCORD_TOKEN
+      - GOOGLE_FOLDER_ID
+      - GOOGLE_DOC_NAME
+      - TEMPLATE_DOC_NAME
+      - GOOGLE_SERVICE_ACCOUNT_JSON
+    # Optional: if you want to override the default command
+    # command: ["python", "-m", "ctf_bot"]
+    
+    # Optional: resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M

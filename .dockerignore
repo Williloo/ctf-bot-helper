@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation and development files (keeping README.md for build)
+docs/
+tests/
+.github/
+
+# Secret files (these should be mounted as volumes)
+.secret/
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
