@@ -8,14 +8,19 @@ RUN apt-get update && apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy project files
-COPY pyproject.toml README.md ./
+# Install Python dependencies first (for better caching)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+    discord.py>=2.0.0 \
+    google-api-python-client>=2.0.0 \
+    google-auth>=2.0.0 \
+    google-auth-oauthlib>=0.5.0 \
+    google-auth-httplib2>=0.1.0 \
+    python-dotenv>=1.0.0
+
+# Copy the source code
 COPY src/ ./src/
 COPY bot.py ./
-
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir -e .
 
 # Create a non-root user for security
 RUN useradd --create-home --shell /bin/bash ctfbot
@@ -23,7 +28,7 @@ USER ctfbot
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app/src
+ENV PYTHONPATH=/app
 
 # Default command
 CMD ["python", "bot.py"]

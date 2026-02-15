@@ -1,8 +1,6 @@
 services:
   ctf-bot:
-    build: 
-      context: .
-      dockerfile: Dockerfile.simple
+    build: .
     container_name: ctf-bot-helper
     restart: unless-stopped
     volumes:
